@@ -1,4 +1,4 @@
-/**
+/*
 * @license Apache-2.0
 *
 * Copyright (c) 2026 The Stdlib Authors.
@@ -16,16 +16,31 @@
 * limitations under the License.
 */
 
-'use strict';
+// TypeScript Version: 4.1
+
+/// <reference types="https://cdn.jsdelivr.net/gh/stdlib-js/types@main/index.d.ts"/>
 
 /**
-* Compute an exponentially weighted variance incrementally, ignoring `NaN` values.
+* If provided a value, the accumulator function returns an updated variance. If not provided a value, the accumulator function returns the current variance.
 *
-* @module @stdlib/stats-incr-nanewvariance
+* ## Notes
+*
+* -   If provided `NaN`, the input is ignored and the accumulated value remains unchanged.
+*
+* @param x - value
+* @returns variance or null
+*/
+type accumulator = ( x?: number ) => number | null;
+
+/**
+* Returns an accumulator function which incrementally computes an exponentially weighted variance, ignoring `NaN` values.
+*
+* @param alpha - smoothing factor
+* @throws must provide a nonnegative number
+* @throws must be on the interval `[0,1]`
+* @returns accumulator function
 *
 * @example
-* var incrnanewvariance = require( '@stdlib/stats-incr-nanewvariance' );
-*
 * var accumulator = incrnanewvariance( 0.5 );
 *
 * var v = accumulator();
@@ -46,12 +61,9 @@
 * v = accumulator();
 * // returns 1.5
 */
-
-// MODULES //
-
-var main = require( './main.js' );
+declare function incrnanewvariance( alpha: number ): accumulator;
 
 
 // EXPORTS //
 
-module.exports = main;
+export = incrnanewvariance;
